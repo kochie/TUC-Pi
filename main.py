@@ -75,7 +75,7 @@ if __name__ == '__main__':
     payload = {'points': [
         {
             'bin_id': bin_id,
-            'data': data,
+            'data': str(data),
             'lat': lat,
             'lng': lng,
             'time': time_now
