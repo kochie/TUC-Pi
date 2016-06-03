@@ -61,7 +61,7 @@ if __name__ == '__main__':
     lng = gpsd.fix.longitude
     print('latitude    ', gpsd.fix.latitude)
     print('longitude   ', gpsd.fix.longitude)
-    data = ('capacity', getCap())
+    data = 'capacity'
 #        'power',getPow(),
 #        'team',
  #           'red', 1,
