@@ -36,12 +36,12 @@ if __name__ == '__main__':
             # print gpsd.fix.latitude,', ',gpsd.fix.longitude,'  Time: ',gpsd.utc
 
             os.system('clear')
+            time.sleep(1)
 
             print('latitude    ', gpsd.fix.latitude)
 
             print('longitude   ', gpsd.fix.longitude)
 
-            time.sleep(5)  # set to whatever
 
     except (KeyboardInterrupt, SystemExit):  # when you press ctrl+c
         print("\nKilling Thread...")
