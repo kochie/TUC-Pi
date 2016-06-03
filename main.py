@@ -4,10 +4,8 @@
 
 import os
 from gps import *
-from time import *
 import time
 import threading
-import json
 import random
 import requests
 
@@ -16,17 +14,30 @@ gpsd = None  # seting the global variable
 os.system('clear')  # clear the terminal (optional)
 
 def getCap(debug=True):
+    """
+    stump capacity code
+    :param debug:
+    :return:
+    """
     if debug:
         return random.random()
 
 
 def getPow(debug=True):
+    """
+    stump power level code
+    :param debug:
+    :return:
+    """
     if debug:
         return random.random()
 
 
 
 class GpsPoller(threading.Thread):
+    """
+    gps poller running gps thread
+    """
     def __init__(self):
         threading.Thread.__init__(self)
         global gpsd  # bring it in scope
@@ -41,25 +52,26 @@ class GpsPoller(threading.Thread):
 
 
 if __name__ == '__main__':
-    gpsp = GpsPoller()
+
+    gpsp = GpsPoller() # start gps service
     gpsp.start()# create the thread
-    time_now = time.strftime("%c")
-    time.sleep(2)
+    time_now = time.strftime("%c") # get time
+    time.sleep(2) # wait for gps
     lat = gpsd.fix.latitude
     lng = gpsd.fix.longitude
     print('latitude    ', gpsd.fix.latitude)
     print('longitude   ', gpsd.fix.longitude)
-    data = [
-        'capacity',getCap(),
-        'power',getPow(),
-        'team',
-            'red', 1,
-            'green', 2,
-            'blue', 3,
-            'yellow', 4
-        ]
-    
+    data = ('capacity', getCap())
+#        'power',getPow(),
+#        'team',
+ #           'red', 1,
+#           'green', 2,
+#            'blue', 3,
+#            'yellow', 4
+#        ]
+
     bin_id = 2
+    #set up payload
     payload = {'points': [
         {
             'bin_id': bin_id,
@@ -72,6 +84,8 @@ if __name__ == '__main__':
 
 
     }
+
+    #send payload
     gpsp.running = False
     gpsp.join()
     print(payload)
