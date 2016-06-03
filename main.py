@@ -52,30 +52,30 @@ class GpsPoller(threading.Thread):
 
 
 if __name__ == '__main__':
-
-    gpsp = GpsPoller() # start gps service
+    gpsp = GpsPoller()
     gpsp.start()# create the thread
-    time_now = time.strftime("%c") # get time
-    time.sleep(2) # wait for gps
+    time_now = time.strftime("%c")
+    time.sleep(2)
     lat = gpsd.fix.latitude
     lng = gpsd.fix.longitude
     print('latitude    ', gpsd.fix.latitude)
     print('longitude   ', gpsd.fix.longitude)
-    data = 'capacity'
-#        'power',getPow(),
-#        'team',
- #           'red', 1,
-#           'green', 2,
-#            'blue', 3,
-#            'yellow', 4
-#        ]
+    data = {'capacity': getCap(),
+            'power': getPow(),
+            'team': {
+                'red': 1,
+                'green': 2,
+                'blue': 3,
+                'yellow': 4
+            }
+
+            }
 
     bin_id = 2
-    #set up payload
     payload = {'points': [
         {
             'bin_id': bin_id,
-            'data': str(data),
+            'data': data,
             'lat': lat,
             'lng': lng,
             'time': time_now
@@ -84,8 +84,6 @@ if __name__ == '__main__':
 
 
     }
-
-    #send payload
     gpsp.running = False
     gpsp.join()
     print(payload)
