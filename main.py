@@ -60,12 +60,16 @@ if __name__ == '__main__':
         }
     }
     bin_id = 2
-    payload = {
-        'bin_id': bin_id,
-        'data': data,
-        'lat': lat,
-        'lng': lng,
-        'time': time_now
+    payload = {'points':[
+        {
+            'bin_id': bin_id,
+            'data': data,
+            'lat': lat,
+            'lng': lng,
+            'time': time_now
+        }
+    ]
+
     }
     r = requests.post('https://binmonsters.xyz/bins', json=payload)
     print(r.status_code)
