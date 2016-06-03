@@ -7,10 +7,23 @@ from gps import *
 from time import *
 import time
 import threading
+import json
+import random
+import requests
 
 gpsd = None  # seting the global variable
 
 os.system('clear')  # clear the terminal (optional)
+
+def getCap(debug=True):
+    if debug:
+        return random.random()
+
+
+def getPow(debug=True):
+    if debug:
+        return random.random()
+
 
 
 class GpsPoller(threading.Thread):
@@ -29,21 +42,34 @@ class GpsPoller(threading.Thread):
 
 if __name__ == '__main__':
     gpsp = GpsPoller()  # create the thread
-    try:
-        gpsp.start()  # start it up
-        while True:
-            # It may take a second or two to get good data
-            # print gpsd.fix.latitude,', ',gpsd.fix.longitude,'  Time: ',gpsd.utc
+    time_now = time.strftime("%c")
+    time.sleep(1)
+    lat = gpsd.fix.latitude
+    lng = gpsd.fix.longitude
+    print('latitude    ', gpsd.fix.latitude)
+    print('longitude   ', gpsd.fix.longitude)
+    data = {
+        'capacity': getCap(),
+        'power': getPow(),
+        'team': {
+            'red': 1,
+            'green': 2,
+            'blue': 3,
+            'yellow': 4
+        }
+    }
+    bin_id = 2
+    payload = {
+        'bin_id': bin_id,
+        'data': data,
+        'lat': lat,
+        'lng': lng,
+        'time': time_now
+    }
+    r = requests.post('http://httpbin.org/post', json={"key": "value"})
+    print(r.status_code)
 
-            time.sleep(1)
-
-            print('latitude    ', gpsd.fix.latitude)
-
-            print('longitude   ', gpsd.fix.longitude)
 
 
-    except (KeyboardInterrupt, SystemExit):  # when you press ctrl+c
-        print("\nKilling Thread...")
-        gpsp.running = False
-        gpsp.join()  # wait for the thread to finish what it's doing
+
     print("Done.\nExiting.")
