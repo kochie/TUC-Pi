@@ -49,16 +49,16 @@ if __name__ == '__main__':
     lng = gpsd.fix.longitude
     print('latitude    ', gpsd.fix.latitude)
     print('longitude   ', gpsd.fix.longitude)
-    data = {
-        'capacity': getCap(),
-        'power': getPow(),
-        'team': {
-            'red': 1,
-            'green': 2,
-            'blue': 3,
-            'yellow': 4
-        }
-    }
+    data = [
+        'capacity',getCap(),
+        'power',getPow(),
+        'team',
+            'red', 1,
+            'green', 2,
+            'blue', 3,
+            'yellow', 4
+        ]
+    
     bin_id = 2
     payload = {'points': [
         {
