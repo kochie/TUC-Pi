@@ -43,7 +43,7 @@ class GpsPoller(threading.Thread):
 if __name__ == '__main__':
     gpsp = GpsPoller()  # create the thread
     time_now = time.strftime("%c")
-    time.sleep(1)
+    time.sleep(2)
     lat = gpsd.fix.latitude
     lng = gpsd.fix.longitude
     print('latitude    ', gpsd.fix.latitude)
@@ -66,7 +66,7 @@ if __name__ == '__main__':
         'lng': lng,
         'time': time_now
     }
-    r = requests.post('http://httpbin.org/post', json={"key": "value"})
+    r = requests.post('https://binmonsters.xyz/bins', json=payload)
     print(r.status_code)
 
 
