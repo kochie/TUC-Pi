@@ -70,7 +70,10 @@ if __name__ == '__main__':
         }
     ]
 
+
     }
+    gpsp.running = False
+    gpsp.join()
     r = requests.post('https://binmonsters.xyz/bins', json=payload)
     print(r.status_code)
     print(r.text)
