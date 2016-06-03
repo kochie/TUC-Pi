@@ -68,6 +68,7 @@ if __name__ == '__main__':
     }
     r = requests.post('https://binmonsters.xyz/bins', json=payload)
     print(r.status_code)
+    print(r.response)
 
 
 
