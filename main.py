@@ -35,7 +35,6 @@ if __name__ == '__main__':
             # It may take a second or two to get good data
             # print gpsd.fix.latitude,', ',gpsd.fix.longitude,'  Time: ',gpsd.utc
 
-            os.system('clear')
             time.sleep(1)
 
             print('latitude    ', gpsd.fix.latitude)
