@@ -9,28 +9,70 @@ import threading
 import random
 import requests
 
+
+
+BIN_ID = 2
+DEBUG = True
+
 gpsd = None  # seting the global variable
 
 os.system('clear')  # clear the terminal (optional)
 
-def getCap(debug=True):
+def getCap():
     """
     stump capacity code
     :param debug:
     :return:
     """
-    if debug:
+    if DEBUG:
         return random.random()
+    else:
 
 
-def getPow(debug=True):
+
+def getPow():
     """
     stump power level code
     :param debug:
     :return:
     """
-    if debug:
+    if DEBUG:
         return random.random()
+    else:
+
+
+def getTeam():
+    if DEBUG:
+        return random.randint(1, 4)
+    else:
+
+
+
+def getPower():
+    if DEBUG:
+        return random.randint(1, 4)
+    else:
+
+def getPIR():
+    if DEBUG:
+        return random.randint(1, 4)
+    else:
+
+def getColour():
+    if DEBUG:
+        return random.randint(1, 4)
+    else:
+
+def getBinCap():
+    if DEBUG:
+        return random.randint(1, 4)
+    else:
+
+def getSolar():
+    if DEBUG:
+        return random.randint(1, 4)
+    else:
+
 
 
 
@@ -60,25 +102,21 @@ if __name__ == '__main__':
     lng = gpsd.fix.longitude
     print('latitude    ', gpsd.fix.latitude)
     print('longitude   ', gpsd.fix.longitude)
-    data = {'capacity': getCap(),
-            'power': getPow(),
-            'team': {
-                'red': 1,
-                'green': 2,
-                'blue': 3,
-                'yellow': 4
-            }
 
-            }
 
-    bin_id = 2
+    bin_id = BIN_ID
     payload = {'points': [
         {
             'bin_id': bin_id,
-            'data': str(data),
             'lat': lat,
             'lng': lng,
-            'time': time_now
+            'time': time_now,
+            'team': getTeam(),
+            'powerLevel': getPower(),
+            'pirValue': getPIR(),
+            'colourValue': getColour(),
+            'binCapacity': getBinCap(),
+            'solarValue': getSolar()
         }
     ]
 
