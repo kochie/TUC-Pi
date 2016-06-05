@@ -8,6 +8,12 @@ import time
 import threading
 import random
 import requests
+import spidev
+
+spi = spidev.SpiDev()
+spi.max_speed_hz = 5000
+spi.mode = 0b01
+spi.open(bus, device)
 
 
 
@@ -18,60 +24,43 @@ gpsd = None  # seting the global variable
 
 os.system('clear')  # clear the terminal (optional)
 
-def getCap():
-    """
-    stump capacity code
-    :param debug:
-    :return:
-    """
-    if DEBUG:
-        return random.random()
-    else:
-
-
-
-def getPow():
-    """
-    stump power level code
-    :param debug:
-    :return:
-    """
-    if DEBUG:
-        return random.random()
-    else:
 
 
 def getTeam():
     if DEBUG:
         return random.randint(1, 4)
     else:
-
-
+        return spi.get(1)
 
 def getPower():
     if DEBUG:
         return random.randint(1, 4)
     else:
+        return spi.get(2)
 
 def getPIR():
     if DEBUG:
         return random.randint(1, 4)
     else:
+        return spi.get(3)
 
 def getColour():
     if DEBUG:
         return random.randint(1, 4)
     else:
+        return spi.get(4)
 
 def getBinCap():
     if DEBUG:
         return random.randint(1, 4)
     else:
+        return spi.get(5)
 
 def getSolar():
     if DEBUG:
         return random.randint(1, 4)
     else:
+        return spi.get(6)
 
 
 
